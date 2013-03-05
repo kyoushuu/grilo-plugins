@@ -30,6 +30,7 @@
 #include <glib/gi18n-lib.h>
 #include <string.h>
 #include <stdlib.h>
+#include <pls/grl-pls.h>
 
 #include "grl-filesystem.h"
 
@@ -1226,6 +1227,11 @@ grl_filesystem_source_browse (GrlSource *source,
   GList *chosen_uris;
 
   GRL_DEBUG (__FUNCTION__);
+
+  if (grl_pls_media_is_playlist (bs->container)) {
+    grl_pls_browse_by_spec (source, bs);
+    return;
+  }
 
   id = grl_media_get_id (bs->container);
   chosen_uris = GRL_FILESYSTEM_SOURCE(source)->priv->chosen_uris;
