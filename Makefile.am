@@ -50,6 +50,7 @@ DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper \
                             --enable-magnatune \
                             --enable-metadata-store \
                             --enable-optical-media \
+                            --enable-playlist \
                             --enable-podcasts \
                             --enable-tmdb \
                             --enable-tracker \

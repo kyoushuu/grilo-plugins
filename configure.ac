@@ -563,6 +563,40 @@ fi
 AC_SUBST(DEPS_FLICKR_LIBS)
 
 # ----------------------------------------------------------
+# BUILD PLAYLIST PLUGIN
+# ----------------------------------------------------------
+
+AC_ARG_ENABLE(playlist,
+        AC_HELP_STRING([--enable-playlist],
+                [enable Playlist plugin (default: yes)]),
+        [
+                case "$enableval" in
+                     yes)
+                        if test "x$HAVE_GRLPLS" = "xno"; then
+                           AC_MSG_ERROR([grilo-pls not found, install it or use --disable-playlist])
+                        fi
+                        ;;
+                esac
+        ],
+        [enable_playlist=yes])
+
+AM_CONDITIONAL([PLAYLIST_PLUGIN], [test "x$enable_playlist" = "xyes"])
+GRL_PLUGINS_ALL="$GRL_PLUGINS_ALL playlist"
+if test "x$enable_playlist" = "xyes"
+then
+  GRL_PLUGINS_ENABLED="$GRL_PLUGINS_ENABLED playlist"
+fi
+
+PLAYLIST_PLUGIN_ID="grl-playlist"
+AC_SUBST(PLAYLIST_PLUGIN_ID)
+AC_DEFINE_UNQUOTED([PLAYLIST_PLUGIN_ID], ["$PLAYLIST_PLUGIN_ID"], [playlist plugin ID])
+
+DEPS_PLAYLIST_CFLAGS="$DEPS_CFLAGS $GRLPLS_CFLAGS $GIO_CFLAGS"
+AC_SUBST(DEPS_PLAYLIST_CFLAGS)
+DEPS_PLAYLIST_LIBS="$DEPS_LIBS $GRLPLS_LIBS $GIO_LIBS"
+AC_SUBST(DEPS_PLAYLIST_LIBS)
+
+# ----------------------------------------------------------
 # BUILD PODCASTS PLUGIN
 # ----------------------------------------------------------
 
@@ -1195,6 +1229,7 @@ AC_CONFIG_FILES([
   src/magnatune/Makefile
   src/metadata-store/Makefile
   src/optical-media/Makefile
+  src/playlist/Makefile
   src/podcasts/Makefile
   src/raitv/Makefile
   src/shoutcast/Makefile

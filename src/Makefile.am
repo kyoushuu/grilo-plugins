@@ -64,6 +64,10 @@ if OPTICAL_MEDIA_PLUGIN
 SUBDIRS += optical-media
 endif
 
+if PLAYLIST_PLUGIN
+SUBDIRS += playlist
+endif
+
 if PODCASTS_PLUGIN
 SUBDIRS += podcasts
 endif
@@ -99,7 +103,7 @@ endif
 DIST_SUBDIRS = \
 	apple-trailers bliptv bookmarks dmap fake-metadata filesystem flickr	\
 	gravatar jamendo lastfm-albumart local-metadata magnatune metadata-store\
-	optical-media podcasts raitv shoutcast tmdb tracker upnp vimeo			\
+	optical-media playlist podcasts raitv shoutcast tmdb tracker upnp vimeo		\
 	youtube
 
 MAINTAINERCLEANFILES =	\
